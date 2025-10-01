@@ -12,7 +12,8 @@ fetch(apiUrl)
         DisplayGallery(data);
     })
     .catch(err => console.error(err));
-    let gallery = document.querySelector(".gallery")
+
+    let gallery = document.querySelector(".gallery");
     
     function DisplayGallery (data) {
         data.forEach((item) => {
