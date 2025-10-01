@@ -9,6 +9,22 @@ fetch(apiUrl)
         return response.json(); //Convertion JSON
     })
     .then(data => {
-        console.log("Travaux récupérés :", data);
+        DisplayGallery(data);
     })
     .catch(err => console.error(err));
+    let gallery = document.querySelector(".gallery")
+    
+    function DisplayGallery (data) {
+        data.forEach((item) => {
+            console.log(item);
+            const figure = document.createElement("figure");
+            const img = document.createElement ("img");
+            img.src = item["imageUrl"];
+            img.alt = item["title"];
+            const figcaption = document.createElement("figcaption");
+            figcaption.innerText = item["title"];
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+        });
+    }
