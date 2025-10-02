@@ -91,16 +91,24 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 30px;
 	font-size: 1.2em;
 }
 
+nav img {
+	height: 1.3rem;
+	color: black;
+	font-weight: bolder;
+}
 li:hover {
 	color: #B1663C;
+	cursor: default;
 }
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-top: 10rem;
+	margin-bottom: 10rem;
 }
 #introduction figure {
 	flex: 1
@@ -125,6 +133,28 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.filter{
+	text-align: center;
+}
+button{
+	font-family: 'Syne';
+	font-weight: 650;
+	font-size: 1.2rem;
+	color: #1D6154;
+	background-color: white;
+	margin : 1rem 0.2rem 3rem 0.2rem ;
+	width: auto;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	border: 0.1px #1D6154 solid;
+	border-radius: 2rem ;
+}
+
+button:hover{
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
