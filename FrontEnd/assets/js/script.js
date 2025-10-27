@@ -1,7 +1,7 @@
 // URL du back-end (GET/works)
-const apiUrl = "http://localhost:5678/api/works";
+const apiUrlworks = "http://localhost:5678/api/works";
 
-fetch(apiUrl)
+fetch(apiUrlworks)
     .then(response => {
         if (!response.ok) {
             throw new Error(`Erreur HTTP ! statut : ${response.status}`);
@@ -85,4 +85,48 @@ function loadCategories(worksData) {
             });
             filterDiv.appendChild(btn);
         });
+    }
+
+    // Gestion du login/logout + btn "modifier"
+
+    const token = localStorage.getItem("token");
+    const authLink = document.getElementById("authLink");
+    const editButton = document.getElementById("editButton");
+    const editBanner = document.getElementById("editBanner");
+    const filterDiv = document.querySelector(".filter");
+
+
+    
+    // Login/Logout
+    if(token) {
+        authLink.textContent = "logout";
+        authLink.href = "#";
+        authLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            window.location.reload();
+        });
+
+        //UI login
+        editButton?.classList.remove("hidden");
+        editBanner?.classList.remove("hidden");
+        editBanner?.setAttribute("aria-hidden","false");
+        filterDiv?.classList.add("hidden");
+
+    } else {
+        authLink.textContent = "login";
+        authLink.href = "./login.html";
+        editButton?.addEventListener("click", () => {
+            window.location.href = "./login.html";
+        });
+
+        //UI logout
+        editBanner?.classList.add("hidden");
+        editBanner?.setAttribute("aria-hidden","true");
+        filterDiv?.classList.remove("hidden");
+    }
+
+    function logout() {
+        localStorage.removeItem("token");
+        window.location.reload();
     }
