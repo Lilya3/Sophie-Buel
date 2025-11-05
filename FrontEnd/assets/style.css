@@ -165,11 +165,11 @@ button:hover{
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -324,4 +324,128 @@ footer nav ul {
 }
 .edit-btn.hidden{
 	display: none;
+}
+
+/*=========== Modale (hide par défaut) ===========*/
+.modal{
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+}
+.modal.is-open{
+	display: block;
+}
+.modal__overlay{
+	position: absolute;
+	inset: 0;
+	background:rgba(0, 0, 0, .45);
+}
+.modal__panel{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: min(720px,92vw);
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 20px 50px rgba(0,0,0,.15);
+	padding: 48px 70px 36px;
+}
+.modal__close{
+	position: absolute;
+	right: 14px;
+	top: -10px;
+	border: none;
+	background: transparent;
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
+}
+.modal__title{
+	text-align: center;
+	margin: 8px 0 18px;
+	font-family: 'Work Sans';
+	font-weight: 580;
+	font-size: 40px;
+	color:black;
+	cursor: default;
+	padding-top: 1.5rem;
+	padding-bottom: 1rem;
+}
+.modal__content{
+	padding: 0 12px;
+	min-height: 120px;
+}
+
+.modal__actions{
+	display: flex;
+	justify-content: center;
+	padding-top: 1.5rem;
+}
+
+/*=========== Bouton Modal ===========*/
+.btn-primary{
+	border: none;
+	border-radius: 60px;
+	padding: 12px 70px;
+	background: #1D6154;
+	color: #fff;
+	font-family: 'Syne';
+	font-weight: 650;
+	cursor: pointer;
+}
+.btn-primary:hover{
+	filter: brightness(0.9);
+}
+
+/*=========== Gallery Miniature Modal ===========*/
+
+.modal__content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 40px; 
+  padding: 30px 60px;
+  justify-items: center; 
+}
+.modal__content figure {
+  position: relative;
+}
+
+.modal__content img {
+  width: 100%;
+  height: auto;
+  display: block; 
+  object-fit: cover;
+}
+
+/*=========== Delete Icon ===========*/
+
+.delete-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: black;
+  color: white;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.delete-icon:hover {
+  background: crimson;
+}
+
+/*=========== Ligne horizontal séparation ===========*/
+.modal__separator{
+	grid-column: 1 / -1;
+	border: none;
+	height: 3px;
+	background: #e6e6e6;
+	margin: 20px 0;
+	width: 100%;
+	justify-self: center;
 }

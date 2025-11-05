@@ -49,6 +49,21 @@
 			<button id="editButton" class="edit-btn hidden">
 				<i class="fa-regular fa-pen-to-square"></i> modifier
 			</button>
+			<div id="galleryModal" class="modal" aria-hidden="true">
+				<div class="modal__overlay" data-close="overlay"></div>
+				<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
+					<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
+					<h3 id="galleryTitle" class="modal__title">Galerie photo</h3>
+					<div class="modal__content">
+						<!--vignettes-->
+					</div>
+		
+					
+					<div class="modal__actions">
+						<button class="btn-primary" id="addPhoto">Ajouter une photo</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="filter"></div>

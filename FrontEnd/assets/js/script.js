@@ -1,3 +1,6 @@
+// import
+import "./modale.js";
+
 // URL du back-end (GET/works)
 const apiUrlworks = "http://localhost:5678/api/works";
 
@@ -94,8 +97,6 @@ function loadCategories(worksData) {
     const editButton = document.getElementById("editButton");
     const editBanner = document.getElementById("editBanner");
     const filterDiv = document.querySelector(".filter");
-
-
     
     // Login/Logout
     if(token) {
@@ -130,3 +131,5 @@ function loadCategories(worksData) {
         localStorage.removeItem("token");
         window.location.reload();
     }
+
+    
