@@ -49,23 +49,54 @@
 			<button id="editButton" class="edit-btn hidden">
 				<i class="fa-regular fa-pen-to-square"></i> modifier
 			</button>
-			<div id="galleryModal" class="modal" aria-hidden="true">
-				<div class="modal__overlay" data-close="overlay"></div>
-				<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
-					<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
-					<h3 id="galleryTitle" class="modal__title">Galerie photo</h3>
-					<div class="modal__content">
-						<!--vignettes-->
-					</div>
+		</div>
+		<div id="galleryModal" class="modal" aria-hidden="true">
+			<div class="modal__overlay" data-close="overlay"></div>
+			<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
+				<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
+				<h3 id="galleryTitle" class="modal__title">Galerie photo</h3>
+				<div class="modal__content">
+					<!--vignettes-->
+				</div>
 		
-					
-					<div class="modal__actions">
-						<button class="btn-primary" id="addPhoto">Ajouter une photo</button>
-					</div>
+				<div class="modal__actions">
+					<button class="btn-primary" id="addPhoto">Ajouter une photo</button>
 				</div>
 			</div>
 		</div>
 
+		<div id="addPhotoModal" class="modal" aria-hidden="true">
+			<div class="modal__overlay" data-close="overlay"></div>
+
+			<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="addPhotoTitle">
+				<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
+				<h3 id="addPhotoTitle" class="modal__title">Ajout photo</h3>
+
+				<form id="form-add-photo" class="form-add-photo">
+					<div class="upload-container">
+						<input type="file" id="fileInput" name="image" accept=".jpg, .jpeg, .png" hidden >
+						<label for="fileInput" class="upload-label">
+							<div id="preview" class="preview">
+								<i class="fa-regular fa-image" aria-hidden="true"></i>
+							</div>
+							<span class="upload-btn">+ Ajouter photo</span>
+							<p class="upload-info">jpg, png : 4mo max</p>
+						</label>
+					</div>
+
+					<div class="form-fields">
+						<label for="title">Titre</label>
+						<input type="text" id="title" name="title" required>
+
+						<label for="category">Catégorie</label>
+						<select id="category" name="category" required></select>
+					</div>
+
+					<button type="submit" class="btn-validate">Valider</button>
+				</form>				
+			</div>
+		</div>
+		
 		<div class="filter"></div>
 		<div class="gallery"></div>
 	</section>

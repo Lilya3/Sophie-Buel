@@ -1,9 +1,10 @@
-// Afficher bouton "modifier" seulement si user connecté
+// Display btn "modifier" only if user logged
     const token = localStorage.getItem("token");
     const editButton = document.getElementById("editButton");
     if (token) editButton.classList.remove("hidden");
 
-    // Ouverture/Fermeture modale
+    // ------------------Open/Close modal gallery-------------------
+
     const modal = document.getElementById("galleryModal");
     const overlay = modal.querySelector(".modal__overlay");
     const closeBtn = modal.querySelector(".modal__close");
@@ -39,7 +40,7 @@
         if(e.key==="Escape" && modal.classList.contains("is-open")) closeModal();
     });
 
-    // Navigator back
+    // Browser back
     window.addEventListener("popstate", (event) => {
         if (event.state && event.state.modalOpen) {
             openModal(false);
@@ -52,7 +53,7 @@
         openModal(false)
     }
 
-    // ---------------- Gallery Miniature ------------------------------
+    // Photo Gallery Miniature 
 
 const galleryminiature = document.querySelector(".modal__content");
 
@@ -88,9 +89,72 @@ function DisplayGallery (data) {
     });
 
 
-    // Séparateur
+    // Séparator line
     const separator = document.createElement("hr");
     separator.classList.add("modal__separator");
     separator.setAttribute("aria-hidden", "true");
     galleryminiature.appendChild(separator);
+}
+
+
+// --------------- Modal " Ajout Photo "----------------
+const addPhotoModal = document.getElementById("addPhotoModal");
+const addPhotoBtn = document.getElementById("addPhoto");
+const addPhotoOverlay = addPhotoModal.querySelector(".modal__overlay");
+const addPhotoCloseBtn = addPhotoModal.querySelector(".modal__close");
+
+// Open modal add photo
+function openAddPhotoModal(pushHistory = true) {
+    //Close Gallery Modal before open this one
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+
+    //Open modal addphoto
+    addPhotoModal.classList.add("is-open");
+    addPhotoModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (pushHistory) {
+        history.pushState({ addPhotoOpen: true}, "", "#addphoto");
+    }
+}
+
+// Close modal addPhoto
+function closeAddPhotoModal(pushHistory = true) {
+    addPhotoModal.classList.remove("is-open");
+    addPhotoModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    if (pushHistory && history.state && history.state.addPhotoOpen) {
+        history.back();
+    }
+}
+
+// Click
+addPhotoBtn.addEventListener("click", openAddPhotoModal);
+addPhotoOverlay.addEventListener("click", closeAddPhotoModal);
+addPhotoCloseBtn.addEventListener("click", closeAddPhotoModal);
+
+// Escape Key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && addPhotoModal.classList.contains("is-open")) {
+        closeAddPhotoModal();
+    }
+});
+
+// Browser History
+window.addEventListener("popstate", (event) => {
+    if (event.state?.addPhotoOpen) {
+        openAddPhotoModal(false);
+    } else if (event.state?.modalOpen) {
+        openModal(false);
+    } else {
+        closeAddPhotoModal(false);
+        closeModal(false);
+    }
+});
+
+// Direct opening with #addphoto (si refresh)
+if (window.location.hash === "#addphoto") {
+    openAddPhotoModal(false);
 }

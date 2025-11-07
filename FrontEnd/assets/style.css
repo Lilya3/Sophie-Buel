@@ -158,7 +158,7 @@ button:hover{
 .gallery {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
@@ -216,7 +216,7 @@ footer nav ul {
 	margin: 2em
 }
 
-/*=============================== Login ===================================*/
+/*================ Login ==================*/
 .login-container {
 	width: 400px;
 	margin: 100px auto;
@@ -283,7 +283,7 @@ footer nav ul {
 	text-decoration: underline;
 }
 
-/*=============================== Banner login ===================================*/
+/*============= Login Banner ===============*/
 .edit-banner{
 	background: #000;
 	color: #fff;
@@ -294,7 +294,6 @@ footer nav ul {
 	font-family: 'Work Sans';
 	font-size: 14px;
 	gap: 8px;
-
 	width: 100vw;
 	margin-left: calc(50% - 50vw);
 	margin-right: calc(50% - 50vw);
@@ -304,7 +303,7 @@ footer nav ul {
 	display:none;
 }
 
-/*=========== Bouton "modifier" ===========*/
+/*=========== Btn "modifier" ===========*/
 .portfolio-header{
 	display: flex;
 	align-items: center;
@@ -326,7 +325,7 @@ footer nav ul {
 	display: none;
 }
 
-/*=========== Modale (hide par défaut) ===========*/
+/*=========== Gallery Photo Modal ===========*/
 .modal{
 	display: none;
 	position: fixed;
@@ -341,17 +340,19 @@ footer nav ul {
 	inset: 0;
 	background:rgba(0, 0, 0, .45);
 }
+
 .modal__panel{
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: min(720px,92vw);
+	width: min(630px,90vw);
+	padding: 28px 60px 32px;
 	background: #fff;
 	border-radius: 16px;
 	box-shadow: 0 20px 50px rgba(0,0,0,.15);
-	padding: 48px 70px 36px;
 }
+
 .modal__close{
 	position: absolute;
 	right: 14px;
@@ -362,29 +363,49 @@ footer nav ul {
 	line-height: 1;
 	cursor: pointer;
 }
-.modal__title{
+
+#galleryModal .modal__title {
+	font-size: 32px;
+	font-weight: 500;
+	margin: 12px 0 12px 0;
 	text-align: center;
-	margin: 8px 0 18px;
 	font-family: 'Work Sans';
-	font-weight: 580;
-	font-size: 40px;
 	color:black;
 	cursor: default;
 	padding-top: 1.5rem;
 	padding-bottom: 1rem;
 }
-.modal__content{
-	padding: 0 12px;
-	min-height: 120px;
+
+#galleryModal .modal__content {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-row-gap: 30px;
+	grid-column-gap: 12px;
+	padding: 20px 40px;
+	justify-items: center;
 }
 
-.modal__actions{
+#galleryModal .modal__actions {
 	display: flex;
 	justify-content: center;
-	padding-top: 1.5rem;
+	padding-top: 1.2rem;
 }
 
-/*=========== Bouton Modal ===========*/
+#galleryModal .modal__content figure {
+  position: relative;
+}
+
+#galleryModal .modal__content img {
+  width: 100%;
+  height: auto;
+  display: block; 
+  object-fit: cover;
+}
+
+/*=========== Modale Gallery (hide default) ===========*/
+
+
+/*=========== Btn Modal ===========*/
 .btn-primary{
 	border: none;
 	border-radius: 60px;
@@ -397,27 +418,6 @@ footer nav ul {
 }
 .btn-primary:hover{
 	filter: brightness(0.9);
-}
-
-/*=========== Gallery Miniature Modal ===========*/
-
-.modal__content {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 40px; 
-  padding: 30px 60px;
-  justify-items: center; 
-}
-.modal__content figure {
-  position: relative;
-}
-
-.modal__content img {
-  width: 100%;
-  height: auto;
-  display: block; 
-  object-fit: cover;
 }
 
 /*=========== Delete Icon ===========*/
@@ -439,13 +439,146 @@ footer nav ul {
   background: crimson;
 }
 
-/*=========== Ligne horizontal séparation ===========*/
-.modal__separator{
-	grid-column: 1 / -1;
+/*=========== Separator line ===========*/
+#galleryModal .modal__separator {
+	grid-column: 1 /-1;
 	border: none;
-	height: 3px;
-	background: #e6e6e6;
-	margin: 20px 0;
+	margin: 10px 0;
+	height: 2px;
 	width: 100%;
+	background: grey;
+	opacity: 0.7;
 	justify-self: center;
+}
+
+
+/*===========  Modal Ajout Photo ===========*/
+#form-add-photo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.8rem;
+}
+
+#addPhotoModal .modal__title {
+	font-family: 'Work Sans';
+	font-weight: 500;
+	font-size: 32px;
+	margin: 12px 0 12px 0;
+	text-align: center;
+}
+
+#addPhotoModal .modal__panel {
+	min-height: 773px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.upload-container {
+	display: flex;
+	justify-content: center;
+	background: #e8f0f4;
+	border-radius: 8px;
+	padding: 18px 0 12px;
+	text-align: center;
+	margin-bottom: 1rem;
+	width: 100%;
+	max-width: 450px;
+	max-height: 180px;
+	position: relative;
+}
+
+.upload-label {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #555;
+	font-family: 'Work Sans', sans-serif;
+}
+
+.preview {
+	width: 100%;
+	height: 150px;
+	background: #e8f0f4;
+	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.preview i {
+	font-size: 58px;
+	color: #b9c5cc;
+	opacity: 0.8;
+}
+
+.upload-btn {
+	margin-top: 8px;
+	background-color: #cbd6dc;
+	color: #306685;
+	border-radius: 25px;
+	padding: 8px 22px;
+	font-weight: 600;
+	font-size: 13px;
+	display: inline-block;
+	transition: background-color 0.2s ease;
+}
+
+.upload-btn:hover {
+	background-color: #b4c3ca;
+}
+
+.upload-info {
+	font-size: 12px;
+	color: #666;
+	margin-top:6px;
+}
+
+/*Form fields*/
+.form-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+	margin-top: 0.2rem;
+	min-width: 450px;
+}
+
+.form-fields label {
+	display: block;
+	font-family: 'Work Sans';
+	font-size: 18px;
+	margin-bottom: 6px;
+	color: #333;
+}
+
+.form-fields input,
+.form-fields select {
+	height: 50px;
+	border: none;
+	background: #ffffff;
+	border-radius: 5px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 0 10px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+}
+
+.btn-validate {
+	margin-top: 1rem;
+	background: #a7a7a7;
+	color: white;
+	border: none;
+	border-radius: 30px;
+	padding: 12px 100px;
+	font-family: 'Syne';
+	font-weight: 600;
+	font-size: 15px;
+	cursor: pointer;
+	transition: background-color 0.25s ease;
+}
+
+.btn-validate:hover {
+	background-color: #1D6154;
 }
