@@ -20,7 +20,7 @@ fetch(apiUrlworks)
     .catch(err => console.error(err));
 
     
-// ---------------- Galerie ------------------------------
+// ---------------- Gallery ------------------------------
 const gallery = document.querySelector(".gallery");
     
 function DisplayGallery (data) {
@@ -39,7 +39,7 @@ function DisplayGallery (data) {
     });
 }
 
-// ---------------- Catégories + filtres ----------------
+// ---------------- Category + filters ----------------
 function loadCategories(worksData) {
     const apiCategories = "http://localhost:5678/api/categories";
 
@@ -63,12 +63,12 @@ function loadCategories(worksData) {
     .catch(err => console.error(err));
 }
     
-//Création de filtres
+//Creation filters
     function DisplayCategory (CatIdName, worksData) {
         const filterDiv = document.querySelector(".filter");
         filterDiv.innerHTML = "";
 
-        // Bouton "Tous"
+        // Btn "Tous"
         const allBtn = document.createElement("button");
         allBtn.textContent = "Tous" ;
         allBtn.classList.add("btn");
@@ -77,7 +77,7 @@ function loadCategories(worksData) {
         });
         filterDiv.appendChild(allBtn);
 
-        //Boutons par catégorie
+        //Btn category
         CatIdName.forEach(category => {
             const btn = document.createElement("button");
             btn.textContent = category.name;
@@ -90,7 +90,7 @@ function loadCategories(worksData) {
         });
     }
 
-    // Gestion du login/logout + btn "modifier"
+    // login/logout + btn "modifier" Management
 
     const token = localStorage.getItem("token");
     const authLink = document.getElementById("authLink");

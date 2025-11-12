@@ -46,6 +46,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -61,7 +62,6 @@ header {
 section {
 	margin: 50px 0
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -70,14 +70,11 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -94,7 +91,6 @@ nav li {
 	padding: 0 30px;
 	font-size: 1.2em;
 }
-
 nav img {
 	height: 1.3rem;
 	color: black;
@@ -118,14 +114,12 @@ li:hover {
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
 	flex: 1
 }
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
@@ -149,7 +143,6 @@ button{
 	border: 0.1px #1D6154 solid;
 	border-radius: 2rem ;
 }
-
 button:hover{
 	background-color: #1D6154;
 	color: white;
@@ -162,7 +155,6 @@ button:hover{
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 }
@@ -184,7 +176,6 @@ button:hover{
 	display: flex;
 	flex-direction: column;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
@@ -252,23 +243,6 @@ footer nav ul {
 	padding: 0 10px;
 }
 
-.login-btn {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	border: none;
-	border-radius: 60px;
-	height: 50px;
-	width: 200px;
-	margin: 1.5rem auto 0;
-	cursor: pointer;
-}
-
-.login-btn:hover {
-	filter: brightness(0.95);
-}
-
 .login-error {
 	color: #1D6154;
 	display: none;
@@ -303,7 +277,7 @@ footer nav ul {
 	display:none;
 }
 
-/*=========== Btn "modifier" ===========*/
+/*=========== Portfolio ===========*/
 .portfolio-header{
 	display: flex;
 	align-items: center;
@@ -311,6 +285,24 @@ footer nav ul {
 	gap: 12px;
 	margin-bottom: 1rem;
 }
+
+/*=========== Buttons ===========*/
+.login-btn {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	border: none;
+	border-radius: 60px;
+	height: 50px;
+	width: 200px;
+	margin: 1.5rem auto 0;
+	cursor: pointer;
+}
+.login-btn:hover {
+	filter: brightness(0.95);
+}
+
 .edit-btn{
 	display: flex;
 	align-items: center;
@@ -325,49 +317,123 @@ footer nav ul {
 	display: none;
 }
 
-/*=========== Gallery Photo Modal ===========*/
+.modal__btn {
+	all: unset;
+	display: inline-block;
+	border: none;
+	border-radius: 30px;
+	font-family: 'Syne', sans-serif;
+	font-weight: 600;
+	font-size: 15px;
+	padding: 12px 60px;
+	min-width: 150px;
+	text-align: center;
+	cursor: pointer;
+	transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.modal__btn--primary {
+	background: #1D6154;
+	color: white;
+}
+.modal__btn--primary:hover {
+	filter: brightness(0.9);
+	transform: scale(1.02);
+}
+
+#galleryModal .modal__actions {
+	display: flex;
+	justify-content: center;
+	padding-top: 1.5rem;
+}
+
+/*ADD PHOTO*/
+.upload-btn {
+	background-color: #cbd6dc;
+	color: #306685;
+	border-radius: 25px;
+	padding: 15px 40px;
+	font-weight: 600;
+	font-size: 13px;
+	display: inline-block;
+	transition: background-color 0.2s ease;
+}
+.upload-btn:hover {
+	background-color: #b4c3ca;
+}
+
+.modal__btn--disabled {
+	background: #1D6154;
+	color: white;
+	cursor: not-allowed;
+}
+.modal__btn--disabled:hover {
+	background: #a7a7a7;
+	transform: none;
+	filter: none;
+}
+
+#form-add-photo .form-actions {
+	display: flex;
+	justify-content: center;
+	margin-top: 1.5rem;
+}
+
+/*=========== MODALs ===========*/
+/*=========== Gallery Photo ===========*/
 .modal{
 	display: none;
 	position: fixed;
 	inset: 0;
-	z-index: 1000;
+	z-index: 2;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, .45);
+	overflow: auto;
 }
 .modal.is-open{
-	display: block;
+	display: flex;
 }
 .modal__overlay{
 	position: absolute;
 	inset: 0;
 	background:rgba(0, 0, 0, .45);
 }
-
 .modal__panel{
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: min(630px,90vw);
-	padding: 28px 60px 32px;
+	position: relative;
 	background: #fff;
 	border-radius: 16px;
 	box-shadow: 0 20px 50px rgba(0,0,0,.15);
+	width: min(630px,90vw);
+	max-height: 90vh;
+	overflow-y: auto;
+	box-sizing: border-box;
+	padding: 40px 60px 32px;
+	transform: translateY(0);
+	transition: all 0.25s ease;
+}
+.modal__panel::-webkit-scrollbar {
+	width: 8px;
+}
+.modal__panel::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, .2);
+	border-radius: 4px;
 }
 
 .modal__close{
 	position: absolute;
 	right: 14px;
-	top: -10px;
+	top: 10px;
 	border: none;
 	background: transparent;
 	font-size: 28px;
 	line-height: 1;
 	cursor: pointer;
 }
-
-#galleryModal .modal__title {
-	font-size: 32px;
+.modal__title {
+	font-size: 28px;
 	font-weight: 500;
-	margin: 12px 0 12px 0;
+	margin: 0 0 1.8rem 0;
 	text-align: center;
 	font-family: 'Work Sans';
 	color:black;
@@ -381,20 +447,16 @@ footer nav ul {
 	grid-template-columns: repeat(5, 1fr);
 	grid-row-gap: 30px;
 	grid-column-gap: 12px;
-	padding: 20px 40px;
+	padding: 0px 35px;
 	justify-items: center;
 }
-
 #galleryModal .modal__actions {
 	display: flex;
 	justify-content: center;
-	padding-top: 1.2rem;
 }
-
 #galleryModal .modal__content figure {
   position: relative;
 }
-
 #galleryModal .modal__content img {
   width: 100%;
   height: auto;
@@ -402,26 +464,7 @@ footer nav ul {
   object-fit: cover;
 }
 
-/*=========== Modale Gallery (hide default) ===========*/
-
-
-/*=========== Btn Modal ===========*/
-.btn-primary{
-	border: none;
-	border-radius: 60px;
-	padding: 12px 70px;
-	background: #1D6154;
-	color: #fff;
-	font-family: 'Syne';
-	font-weight: 650;
-	cursor: pointer;
-}
-.btn-primary:hover{
-	filter: brightness(0.9);
-}
-
 /*=========== Delete Icon ===========*/
-
 .delete-icon {
   position: absolute;
   top: 8px;
@@ -434,45 +477,43 @@ footer nav ul {
   font-size: 14px;
   transition: background 0.2s ease;
 }
-
 .delete-icon:hover {
   background: crimson;
 }
 
 /*=========== Separator line ===========*/
-#galleryModal .modal__separator {
-	grid-column: 1 /-1;
+.modal__separator {
 	border: none;
-	margin: 10px 0;
 	height: 2px;
 	width: 100%;
 	background: grey;
 	opacity: 0.7;
-	justify-self: center;
+	margin: 28px 0 32px;
+	opacity: 0.7;
 }
 
+#galleryModal .modal__separator {
+	grid-column: 1 /-1;
+	margin: 30px 0 20px;
+}
+
+#form-add-photo .modal__separator {
+	display: block;
+	margin: 28px 0 20px;
+}
 
 /*===========  Modal Ajout Photo ===========*/
 #form-add-photo {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1.8rem;
+	padding: 0px 36px;
+	justify-items: center;
 }
-
-#addPhotoModal .modal__title {
-	font-family: 'Work Sans';
-	font-weight: 500;
-	font-size: 32px;
-	margin: 12px 0 12px 0;
-	text-align: center;
-}
-
-#addPhotoModal .modal__panel {
-	min-height: 773px;
+#form-add-photo .form-actions {
 	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: center;
+	margin-top: 1.5rem;
 }
 
 .upload-container {
@@ -480,15 +521,13 @@ footer nav ul {
 	justify-content: center;
 	background: #e8f0f4;
 	border-radius: 8px;
-	padding: 18px 0 12px;
+	padding: 15px 0px 12px;
 	text-align: center;
 	margin-bottom: 1rem;
 	width: 100%;
-	max-width: 450px;
 	max-height: 180px;
 	position: relative;
 }
-
 .upload-label {
 	cursor: pointer;
 	display: flex;
@@ -499,52 +538,48 @@ footer nav ul {
 }
 
 .preview {
-	width: 100%;
-	height: 150px;
 	background: #e8f0f4;
 	border-radius: 4px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 10px 0 10px 0;
 }
-
 .preview i {
-	font-size: 58px;
+	font-size: 80px;
 	color: #b9c5cc;
 	opacity: 0.8;
 }
 
-.upload-btn {
-	margin-top: 8px;
-	background-color: #cbd6dc;
-	color: #306685;
-	border-radius: 25px;
-	padding: 8px 22px;
-	font-weight: 600;
-	font-size: 13px;
-	display: inline-block;
-	transition: background-color 0.2s ease;
-}
-
-.upload-btn:hover {
-	background-color: #b4c3ca;
-}
-
 .upload-info {
-	font-size: 12px;
+	font-size: 14px;
 	color: #666;
 	margin-top:6px;
 }
 
 /*Form fields*/
+.modal__back {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.modal__back:hover {
+    transform: translateX(-3px);
+}
+
 .form-fields {
 	display: flex;
 	flex-direction: column;
 	gap: 0.8rem;
 	margin-top: 0.2rem;
-	min-width: 450px;
+	width: 100%;
 }
-
 .form-fields label {
 	display: block;
 	font-family: 'Work Sans';
@@ -552,7 +587,6 @@ footer nav ul {
 	margin-bottom: 6px;
 	color: #333;
 }
-
 .form-fields input,
 .form-fields select {
 	height: 50px;
@@ -563,22 +597,4 @@ footer nav ul {
 	padding: 0 10px;
 	font-family: 'Work Sans';
 	font-size: 14px;
-}
-
-.btn-validate {
-	margin-top: 1rem;
-	background: #a7a7a7;
-	color: white;
-	border: none;
-	border-radius: 30px;
-	padding: 12px 100px;
-	font-family: 'Syne';
-	font-weight: 600;
-	font-size: 15px;
-	cursor: pointer;
-	transition: background-color 0.25s ease;
-}
-
-.btn-validate:hover {
-	background-color: #1D6154;
 }

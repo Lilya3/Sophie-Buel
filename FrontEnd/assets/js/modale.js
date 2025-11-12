@@ -3,8 +3,25 @@
     const editButton = document.getElementById("editButton");
     if (token) editButton.classList.remove("hidden");
 
-    // ------------------Open/Close modal gallery-------------------
+    
+// ---------- Scrollbar : Adjust height body for modal ----------
+function adjustBodyToModal(modalElement) {
+    // retrieves the height of the visible modal
+    const modalHeight = modalElement.scrollHeight;
+    
+    // Force body to adapt to the size of the modal
+    document.body.style.height = `${modalHeight}px`;
+    document.body.style.overflowY = "auto"; // active le scroll global si nécessaire
+}
 
+// ---------- Restore body to normal ----------
+function resetBodySize() {
+    document.body.style.height = "";
+    document.body.style.overflowY = "";
+}
+
+
+// ------------------Open/Close modal gallery-------------------
     const modal = document.getElementById("galleryModal");
     const overlay = modal.querySelector(".modal__overlay");
     const closeBtn = modal.querySelector(".modal__close");
@@ -14,7 +31,9 @@
 
         modal.classList.add("is-open")
         modal.setAttribute("aria-hidden","false");
-        document.body.style.overflow = "hidden";
+
+        // Scroll bar change body size to modal size
+        adjustBodyToModal(modal);
 
         if (pushHistory) {
             history.pushState({ modalOpen: true }, "", "#modal");
@@ -25,7 +44,9 @@
         document.activeElement.blur();
         modal.classList.remove("is-open");
         modal.setAttribute("aria-hidden", "true");
-        document.body.style.overflow ="";
+
+        //scrollbar body normal
+        resetBodySize();
 
         if (pushHistory && history.state && history.state.modalOpen) {
             history.back();
@@ -102,6 +123,7 @@ const addPhotoModal = document.getElementById("addPhotoModal");
 const addPhotoBtn = document.getElementById("addPhoto");
 const addPhotoOverlay = addPhotoModal.querySelector(".modal__overlay");
 const addPhotoCloseBtn = addPhotoModal.querySelector(".modal__close");
+const backToGalleryBtn = document.getElementById("backToGallery");
 
 // Open modal add photo
 function openAddPhotoModal(pushHistory = true) {
@@ -112,10 +134,25 @@ function openAddPhotoModal(pushHistory = true) {
     //Open modal addphoto
     addPhotoModal.classList.add("is-open");
     addPhotoModal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+
+    //scrollbar
+    adjustBodyToModal(addPhotoModal);
 
     if (pushHistory) {
-        history.pushState({ addPhotoOpen: true}, "", "#addphoto");
+        history.pushState({ addPhotoOpen: true, fromGallery: true}, "", "#addphoto");
+    }
+
+    //Add separator line formaddphoto
+    const form = document.getElementById("form-add-photo");
+    const formFields = form.querySelector(".form-fields");
+
+    if (!form.querySelector(".modal__separator")) {
+    const separator = Object.assign(document.createElement("hr"), {
+        className: "modal__separator",
+        ariaHidden: "true"
+    });
+
+    formFields.appendChild(separator);
     }
 }
 
@@ -123,12 +160,20 @@ function openAddPhotoModal(pushHistory = true) {
 function closeAddPhotoModal(pushHistory = true) {
     addPhotoModal.classList.remove("is-open");
     addPhotoModal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
+
+    //scrollbar body normal
+    resetBodySize();
 
     if (pushHistory && history.state && history.state.addPhotoOpen) {
         history.back();
     }
 }
+
+// Click Back Arrow
+backToGalleryBtn.addEventListener("click", () => {
+    closeAddPhotoModal();
+    openModal();
+})
 
 // Click
 addPhotoBtn.addEventListener("click", openAddPhotoModal);
@@ -146,7 +191,8 @@ document.addEventListener("keydown", (e) => {
 window.addEventListener("popstate", (event) => {
     if (event.state?.addPhotoOpen) {
         openAddPhotoModal(false);
-    } else if (event.state?.modalOpen) {
+    } else if (event.state?.modalOpen || window.location.hash === "#modal") {
+        closeAddPhotoModal(false);
         openModal(false);
     } else {
         closeAddPhotoModal(false);
@@ -158,3 +204,11 @@ window.addEventListener("popstate", (event) => {
 if (window.location.hash === "#addphoto") {
     openAddPhotoModal(false);
 }
+
+window.addEventListener("resize", () => {
+  if (addPhotoModal.classList.contains("is-open")) {
+    adjustBodyToModal(addPhotoModal);
+  } else if (modal.classList.contains("is-open")) {
+    adjustBodyToModal(modal);
+  }
+});
