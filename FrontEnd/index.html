@@ -50,6 +50,7 @@
 				<i class="fa-regular fa-pen-to-square"></i> modifier
 			</button>
 		</div>
+
 		<div id="galleryModal" class="modal" aria-hidden="true">
 			<div class="modal__overlay" data-close="overlay"></div>
 			<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
@@ -99,6 +100,21 @@
 					</div>
 				</form>				
 			</div>
+		</div>
+
+		<div id="confirmModal" class="confirm-modal hidden">
+  			<div class="confirm-box">
+    			<p>Êtes-vous sûre de vouloir supprimer cet élément ?</p>
+    
+    			<div class="confirm-buttons">
+      				<button id="confirmYes" class="confirm-btn confirm-yes">Oui</button>
+      				<button id="confirmNo" class="confirm-btn confirm-no">Annuler</button>
+    			</div>
+  			</div>
+		</div>
+
+		<div id="successToast" class="success-toast hidden">
+  			L'élément a bien été supprimé ✔️
 		</div>
 		
 		<div class="filter"></div>

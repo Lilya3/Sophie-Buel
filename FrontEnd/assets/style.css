@@ -598,3 +598,73 @@ footer nav ul {
 	font-family: 'Work Sans';
 	font-size: 14px;
 }
+
+/*===========  Modal Confirmation / Success ===========*/
+.confirm-modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+}
+.confirm-modal.hidden{
+	display: none;
+}
+.confirm-box{
+	background: white;
+	padding: 0px 30px;
+	border-radius: 12px;
+	text-align: center;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+	font-family: 'Work Sans';
+}
+.confirm-box p {
+	font-family: 'Syne';
+	font-size: 15px;
+	padding: 50px 0px 20px 0px;
+}
+.confirm-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+}
+.confirm-btn{
+	padding: 10px 25px;
+	border-radius: 20px;
+	cursor: pointer;
+	font-family: 'Syne';
+	font-weight: 600;
+}
+.confirm-yes {
+	border: none;
+}
+
+.confirm-no {
+	background: #ccc;
+	border: none;
+}
+
+
+.success-toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1D6154;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-family: 'Work Sans';
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity .3s ease;
+  z-index: 2000;
+}
+.success-toast.show {
+  opacity: 1;
+}
+.success-toast.hidden {
+  display: none;
+}

@@ -25,14 +25,20 @@ const gallery = document.querySelector(".gallery");
     
 function DisplayGallery (data) {
     gallery.innerHTML =""; //reset
+
     data.forEach(item => {
         console.log(item);
+
         const figure = document.createElement("figure");
         const img = document.createElement ("img");
+
         img.src = item.imageUrl;
         img.alt = item.title;
+        figure.dataset.id = item.id; // attach id
+
         const figcaption = document.createElement("figcaption");
         figcaption.innerText = item.title;
+
         figure.appendChild(img);
         figure.appendChild(figcaption);
         gallery.appendChild(figure);

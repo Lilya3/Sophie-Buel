@@ -88,9 +88,13 @@ getWorks();
 
 function DisplayGallery (data) {
     galleryminiature.innerHTML =""; //reset
+
     data.forEach(item => {
+
         console.log(item);
+
         const figure = document.createElement("figure");
+        figure.dataset.id = item.id;
 
         const img = document.createElement ("img");
         img.src = item.imageUrl;
@@ -98,12 +102,16 @@ function DisplayGallery (data) {
 
         const deleteBtn = document.createElement("i");
         deleteBtn.classList.add("fa-solid", "fa-trash-can", "delete-icon");
+        
+        deleteBtn.addEventListener("click", (e) => {
+            const parentFigure = e.target.closest("figure");
+            const id = parentFigure.dataset.id;
 
-
-        const figcaption = document.createElement("figcaption");
+            console.log("ID du projet à supprimer :", id);
+            openConfirmModal(id, parentFigure);
+        });
 
         figure.appendChild(img);
-        figure.appendChild(figcaption);
         figure.appendChild(deleteBtn);
 
         galleryminiature.appendChild(figure);
@@ -212,3 +220,76 @@ window.addEventListener("resize", () => {
     adjustBodyToModal(modal);
   }
 });
+
+
+//---------------Delete existing project---------------
+// --------------- Modal Ask Confirmation / Success ----------------
+// -------- Confirmation Modal -----------
+let itemToDeleteID = null;
+let itemToDeleteFigure = null;
+
+const confirmModal = document.getElementById("confirmModal");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+// Display confirm msg
+function openConfirmModal(id, figureElement) {
+    itemToDeleteID = id;
+    itemToDeleteFigure = figureElement;
+    confirmModal.classList.remove("hidden");
+}
+
+// Close confirm msg
+function closeConfirmModal() {
+    itemToDeleteID = null;
+    itemToDeleteFigure = null;
+    confirmModal.classList.add("hidden");
+}
+
+confirmYes.addEventListener("click", async () => {
+    if (!itemToDeleteID) return;
+
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/${itemToDeleteID}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        });
+
+        if (response.ok) {
+            // 1. delete in modal
+            itemToDeleteFigure.remove();
+
+            // 2. delete in main gallery
+            const mainImg = document.querySelector(`figure[data-id="${itemToDeleteID}"]`);
+            if (mainImg) mainImg.remove();
+
+            showSuccessToast();
+        }
+
+    } catch (err) {
+        console.error("Erreur DELETE :", err);
+    }
+
+    closeConfirmModal();
+});
+
+confirmNo.addEventListener("click", closeConfirmModal);
+
+
+// -------- Sucess msg -----------
+function showSuccessToast() {
+    const toast = document.getElementById("successToast");
+    toast.classList.remove("hidden");
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.classList.add("hidden"), 300);
+    }, 15000);
+}
+
+// 8.1 ajouter nouveau projet
+//  possibilité récup database (Modal photo suite)
+//  Pouvoir ajouter sur la database les photos projets (Modal photo suite)
