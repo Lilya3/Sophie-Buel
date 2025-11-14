@@ -91,10 +91,18 @@ nav li {
 	padding: 0 30px;
 	font-size: 1.2em;
 }
+nav a {
+	text-decoration: none;
+	color: black;
+	font-family: 'Work Sans';
+	font-weight: 500;
+}
+.auth-active {
+	font-weight: 700;
+}
 nav img {
 	height: 1.3rem;
 	color: black;
-	font-weight: bolder;
 }
 li:hover {
 	color: #B1663C;
@@ -649,7 +657,7 @@ footer nav ul {
 
 .success-toast {
   position: fixed;
-  bottom: 40px;
+  top: 150px;
   left: 50%;
   transform: translateX(-50%);
   background: #1D6154;

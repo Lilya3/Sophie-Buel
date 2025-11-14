@@ -1,6 +1,7 @@
 // import
 import "./modale.js";
 
+
 // URL du back-end (GET/works)
 const apiUrlworks = "http://localhost:5678/api/works";
 
@@ -108,6 +109,7 @@ function loadCategories(worksData) {
     if(token) {
         authLink.textContent = "logout";
         authLink.href = "#";
+
         authLink.addEventListener("click", (e) => {
             e.preventDefault();
             localStorage.removeItem("token");
@@ -123,6 +125,8 @@ function loadCategories(worksData) {
     } else {
         authLink.textContent = "login";
         authLink.href = "./login.html";
+        authLink.classList.add("auth-active"); //bold login
+
         editButton?.addEventListener("click", () => {
             window.location.href = "./login.html";
         });
@@ -132,10 +136,3 @@ function loadCategories(worksData) {
         editBanner?.setAttribute("aria-hidden","true");
         filterDiv?.classList.remove("hidden");
     }
-
-    function logout() {
-        localStorage.removeItem("token");
-        window.location.reload();
-    }
-
-    

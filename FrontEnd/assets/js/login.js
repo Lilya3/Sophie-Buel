@@ -39,3 +39,6 @@ if (token) {
   });
 }
 
+//bold login 
+const authLink = document.getElementById("authLink");
+authLink?.classList.add("auth-active");
