@@ -1,138 +1,27 @@
-// import
-import "./modale.js";
+/* -------------------------------------------------
+   Loads all modules and initializes the page
+   ------------------------------------------------- */
 
+import { setupIndexPage } from "./components/indexPage.js";
+import { setupEditButton } from "./components/editButton.js";
+import { initGallery } from "./components/gallery.js";
+import { loadModalGallery } from "./components/modalGallery.js";
+import "./components/modalAddPhoto.js";
 
-// URL du back-end (GET/works)
-const apiUrlworks = "http://localhost:5678/api/works";
+console.log("start script.js");
 
-fetch(apiUrlworks)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-        }
-        return response.json(); //Convert to JSON
-    })
-    .then(worksData => {
-        // affichage départ
-        DisplayGallery(worksData);
-        // charge categories + envoi worksData
-        loadCategories(worksData);
-    })
-    .catch(err => console.error(err));
+// 1. Setup login/logout UI, edit-banner, filters visibility
+console.log("load indexPage");
+setupIndexPage();
 
-    
-// ---------------- Gallery ------------------------------
-const gallery = document.querySelector(".gallery");
-    
-function DisplayGallery (data) {
-    gallery.innerHTML =""; //reset
+// 2. Setup "modifier" button display/behavior
+console.log("load editButton");
+setupEditButton();
 
-    data.forEach(item => {
-        console.log(item);
+// 3. Load the main gallery + categories
+console.log("load gallery");
+initGallery();
 
-        const figure = document.createElement("figure");
-        const img = document.createElement ("img");
-
-        img.src = item.imageUrl;
-        img.alt = item.title;
-        figure.dataset.id = item.id; // attach id
-
-        const figcaption = document.createElement("figcaption");
-        figcaption.innerText = item.title;
-
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-        gallery.appendChild(figure);
-    });
-}
-
-// ---------------- Category + filters ----------------
-function loadCategories(worksData) {
-    const apiCategories = "http://localhost:5678/api/categories";
-
-    fetch(apiCategories)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-        }
-        return response.json(); //Convert to JSON
-    })
-    .then(categories => {
-        const CatIdName = Array.from(
-            categories.map(category => {
-                return {id: category.id, name: category.name};
-            })
-        );
-        console.log("Catégories filtrées :", CatIdName);
-        
-        DisplayCategory(CatIdName, worksData);
-    })
-    .catch(err => console.error(err));
-}
-    
-//Creation filters
-    function DisplayCategory (CatIdName, worksData) {
-        const filterDiv = document.querySelector(".filter");
-        filterDiv.innerHTML = "";
-
-        // Btn "Tous"
-        const allBtn = document.createElement("button");
-        allBtn.textContent = "Tous" ;
-        allBtn.classList.add("btn");
-        allBtn.addEventListener("click", () => {
-            DisplayGallery(worksData);
-        });
-        filterDiv.appendChild(allBtn);
-
-        //Btn category
-        CatIdName.forEach(category => {
-            const btn = document.createElement("button");
-            btn.textContent = category.name;
-            btn.classList.add("btn");
-            btn.addEventListener("click", () => {
-                const filtered = worksData.filter(work => work.categoryId === category.id);
-                DisplayGallery(filtered);
-            });
-            filterDiv.appendChild(btn);
-        });
-    }
-
-    // login/logout + btn "modifier" Management
-
-    const token = localStorage.getItem("token");
-    const authLink = document.getElementById("authLink");
-    const editButton = document.getElementById("editButton");
-    const editBanner = document.getElementById("editBanner");
-    const filterDiv = document.querySelector(".filter");
-    
-    // Login/Logout
-    if(token) {
-        authLink.textContent = "logout";
-        authLink.href = "#";
-
-        authLink.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.removeItem("token");
-            window.location.reload();
-        });
-
-        //UI login
-        editButton?.classList.remove("hidden");
-        editBanner?.classList.remove("hidden");
-        editBanner?.setAttribute("aria-hidden","false");
-        filterDiv?.classList.add("hidden");
-
-    } else {
-        authLink.textContent = "login";
-        authLink.href = "./login.html";
-        authLink.classList.add("auth-active"); //bold login
-
-        editButton?.addEventListener("click", () => {
-            window.location.href = "./login.html";
-        });
-
-        //UI logout
-        editBanner?.classList.add("hidden");
-        editBanner?.setAttribute("aria-hidden","true");
-        filterDiv?.classList.remove("hidden");
-    }
+// 4. Preload modal gallery (optional but smooth UX)
+console.log("load modalGallery");
+loadModalGallery();
