@@ -20,15 +20,15 @@ export async function loginUser(email, password) {
 
     console.log("loginUser ok");
     const data = await response.json();
-    localStorage.setItem("token", data.token);
+    localStorage.setItem("authToken", data.token);
 }
 
 export function logoutUser() {
     console.log("logout");
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
 }
 
 export function isLoggedIn() {
     console.log("check login");
-    return Boolean(localStorage.getItem("token"));
+    return Boolean(localStorage.getItem("authToken"));
 }

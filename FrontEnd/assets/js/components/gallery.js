@@ -14,15 +14,15 @@ let allWorks = [];
    Render gallery
 -------------------------------------------------- */
 export function renderGallery(works) {
-    console.log("→ renderGallery : start");
+    console.log("renderGallery : start");
 
     if (!galleryEl) return;
 
-    console.log("→ renderGallery : clear gallery");
+    console.log("renderGallery : clear gallery");
     clearElement(galleryEl);
 
     works.forEach(work => {
-        console.log("→ renderGallery : add item", work.title);
+        console.log("renderGallery : add item", work.title);
 
         const figure = createElement("figure");
         figure.dataset.id = work.id;
@@ -45,7 +45,7 @@ export function renderGallery(works) {
    Render category filters
 -------------------------------------------------- */
 function renderFilters(categories) {
-    console.log("→ renderFilters : start");
+    console.log("renderFilters : start");
 
     if (!filterEl) return;
 
@@ -57,7 +57,7 @@ function renderFilters(categories) {
     allBtn.textContent = "Tous";
 
     allBtn.addEventListener("click", () => {
-        console.log("→ filter : Tous");
+        console.log("filter : Tous");
         renderGallery(allWorks);
     });
 
@@ -65,14 +65,14 @@ function renderFilters(categories) {
 
     // ----- Buttons for each category
     categories.forEach(cat => {
-        console.log("→ create filter :", cat.name);
+        console.log("create filter :", cat.name);
 
         const btn = createElement("button");
         btn.classList.add("btn");
         btn.textContent = cat.name;
 
         btn.addEventListener("click", () => {
-            console.log("→ filter :", cat.name);
+            console.log("filter :", cat.name);
             const filtered = allWorks.filter(work => work.categoryId === cat.id);
             renderGallery(filtered);
         });
@@ -85,20 +85,20 @@ function renderFilters(categories) {
    Init gallery on page load
 -------------------------------------------------- */
 export async function initGallery() {
-    console.log("→ initGallery : start");
+    console.log("initGallery : start");
 
     try {
-        console.log("→ initGallery : load works");
+        console.log("initGallery : load works");
         allWorks = await getWorks();
 
         renderGallery(allWorks);
 
-        console.log("→ initGallery : load categories");
+        console.log("initGallery : load categories");
         const categories = await getCategories();
 
         renderFilters(categories);
     } 
     catch (err) {
-        console.log("→ initGallery : ERROR", err);
+        console.log("initGallery : ERROR", err);
     }
 }

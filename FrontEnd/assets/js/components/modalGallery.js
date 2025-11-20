@@ -1,43 +1,46 @@
 /* -------------------------------------------------
-        Modal Gallery — main gallery modal
-   ------------------------------------------------- */
+   Modal Gallery — screen 1
+-------------------------------------------------- */
 
-import { openModal} from "../utils/modalHelpers.js";
-import { closeModal } from "../utils/modalHelpers.js";
+import { openModal } from "../utils/modalHelpers.js";
 import { getWorks } from "../api/worksApi.js";
-import { clearElement } from "../utils/domHelpers.js";
 import { openConfirm } from "./modalConfirm.js";
+import { clearElement } from "../utils/domHelpers.js";
+import { loadCategories } from "./modalAddPhoto.js";
 
+const modal = document.getElementById("modal");
+const screenGallery = document.getElementById("modal-gallery");
+const screenAdd = document.getElementById("modal-add");
 
-const galleryModal = document.getElementById("galleryModal");
-const galleryContent = galleryModal.querySelector(".modal__content");
-const closeBtn = galleryModal.querySelector(".modal__close");
 const openEditBtn = document.getElementById("editButton");
+const btnToAddPhoto = document.getElementById("btnToAddPhoto");
+const closeBtns = modal.querySelectorAll(".modal__close");
 
-// open modal
-openEditBtn?.addEventListener("click", () => {
-    console.log("click open gallery");
-    openModal(galleryModal);
-});
+const galleryContent = document.getElementById("modalGalleryContent");
 
-// close modal
-closeBtn.addEventListener("click", () => {
-    console.log("click close gallery");
-    closeModal(galleryModal);
-});
 
 /**
- * Load works into modal gallery
+ * Switch to a modal screen
+ */
+function showScreen(screen) {
+    screenGallery.classList.remove("active");
+    screenAdd.classList.remove("active");
+
+    screen.classList.add("active");
+}
+
+
+/**
+ * Load gallery content (thumbnails)
  */
 export async function loadModalGallery() {
-    console.log("start loadModalGallery");
+    console.log("Loading modal gallery thumbnails…");
 
     const works = await getWorks();
+
     clearElement(galleryContent);
 
     works.forEach(work => {
-        console.log("add mini");
-
         const figure = document.createElement("figure");
         figure.dataset.id = work.id;
 
@@ -46,22 +49,40 @@ export async function loadModalGallery() {
         img.alt = work.title;
 
         const trash = document.createElement("i");
-        trash.classList.add("fa-solid");
-        trash.classList.add("fa-trash-can");
-        trash.classList.add("delete-icon");
+        trash.classList.add("fa-solid", "fa-trash-can", "delete-icon");
 
         trash.addEventListener("click", () => {
-            console.log("click trash");
             openConfirm(work.id);
         });
 
         figure.appendChild(img);
         figure.appendChild(trash);
+
         galleryContent.appendChild(figure);
     });
-
-    // Separator
-    const separator = document.createElement("hr");
-    separator.classList.add("modal__separator");
-    galleryContent.appendChild(separator);
 }
+
+
+/**
+ * Buttons actions
+ */
+openEditBtn?.addEventListener("click", () => {
+    console.log("Open main modal + gallery screen");
+    showScreen(screenGallery);
+    loadModalGallery();
+    openModal();
+});
+
+btnToAddPhoto.addEventListener("click", () => {
+    console.log("Switch to Add Photo screen");
+    showScreen(screenAdd);
+    loadCategories();
+});
+    
+closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        console.log("Close modal clicked");
+        modal.classList.remove("is-open");
+        document.body.style.overflow = "";
+    });
+});

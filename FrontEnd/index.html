@@ -15,7 +15,7 @@
 	<script type="module" src="assets/js/script.js" defer></script>
 </head>
 <body>
-	<div id="editBanner" class="edit-banner hidden" aria-hidden="true">
+	<div id="editBanner" class="edit-banner hidden">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<span class="edit-banner__text">Mode édition</span>
 	</div>
@@ -52,56 +52,73 @@
 			</button>
 		</div>
 
-		<div id="galleryModal" class="modal" aria-hidden="true">
-			<div class="modal__overlay" data-close="overlay"></div>
-			<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
-				<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
-				<h3 id="galleryTitle" class="modal__title">Galerie photo</h3>
-				<div class="modal__content">
-					<!--vignettes-->
-				</div>
-		
-				<div class="modal__actions">
-					<button class="modal__btn modal__btn--primary" id="addPhoto">Ajouter une photo</button>
-				</div>
-			</div>
-		</div>
+<div id="modal" class="modal">
 
-		<div id="addPhotoModal" class="modal" aria-hidden="true">
-			<div class="modal__overlay" data-close="overlay"></div>
+    <div class="modal__overlay" data-close="overlay"></div>
 
-			<div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="addPhotoTitle">
-				<button class="modal__close" aria-label="Fermer" data-close="button">x</button>
-				<button class="modal__back" aria-label="Retour à la galerie" id="backToGallery">
-					<i class="fa-solid fa-arrow-left"></i>
-				</button>
-				<h3 id="addPhotoTitle" class="modal__title">Ajout photo</h3>
+    <div class="modal__panel" role="dialog" aria-modal="false">
 
-				<form id="form-add-photo" class="form-add-photo">
-					<div class="upload-container">
-						<input type="file" id="fileInput" name="image" accept=".jpg, .jpeg, .png" hidden >
-						<label for="fileInput" class="upload-label">
-							<div id="preview" class="preview">
-								<i class="fa-regular fa-image" aria-hidden="true"></i>
-							</div>
-							<span class="upload-btn">+ Ajouter photo</span>
-							<p class="upload-info">jpg, png : 4mo max</p>
-						</label>
-					</div>
+        <div id="modal-gallery" class="modal-screen active">
+            <button class="modal__close" aria-label="Fermer" data-close="button">x</button>
+            <h3 class="modal__title">Galerie photo</h3>
 
-					<div class="form-fields">
-						<label for="title">Titre</label>
-						<input type="text" id="title" name="title" required>
+            <div class="modal__content" id="modalGalleryContent">
+                <!-- vignettes -->
+            </div>
 
-						<label for="category">Catégorie</label>
-						<select id="category" name="category" required></select>
-					</div>
-					<div class="form-actions">
-						<button type="submit" class="modal__btn modal__btn--disabled">Valider</button>
-					</div>
-				</form>				
-			</div>
-		</div>
+			<hr class="modal__separator">
+
+            <div class="modal__actions">
+                <button class="modal__btn modal__btn--primary" id="btnToAddPhoto">
+                    Ajouter une photo
+                </button>
+            </div>
+        </div>
+
+
+        <div id="modal-add" class="modal-screen">
+            <button class="modal__close" aria-label="Fermer" data-close="button">x</button>
+
+            <button class="modal__back" aria-label="Retour à la galerie" id="btnBackToGallery">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <h3 class="modal__title">Ajout photo</h3>
+
+            <form id="form-add-photo" class="form-add-photo">
+
+                <div class="upload-container">
+                    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" hidden>
+                    <label for="fileInput" class="upload-label">
+                        <div id="preview" class="preview">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+                        <span class="upload-btn">+ Ajouter photo</span>
+                        <p class="upload-info">jpg, png : 4mo max</p>
+                    </label>
+                </div>
+
+                <div class="form-fields">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" required>
+
+                    <label for="category">Catégorie</label>
+                    <select id="category" required></select>
+                </div>
+
+				<hr class="modal__separator">
+
+                <div class="form-actions">
+                    <button type="submit" class="modal__btn modal__btn--disabled">
+                        Valider
+                    </button>
+                </div>
+            </form>
+
+        </div> 
+    </div>
+</div>
+
 
 		<div id="confirmModal" class="confirm-modal hidden">
   			<div class="confirm-box">

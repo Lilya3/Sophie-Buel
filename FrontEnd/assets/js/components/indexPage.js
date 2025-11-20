@@ -33,7 +33,6 @@ export function setupIndexPage() {
 
         // show edit banner + hide filters
         editBanner?.classList.remove("hidden");
-        editBanner?.setAttribute("aria-hidden", "false");
 
         filterEl?.classList.add("hidden");
 
@@ -55,7 +54,6 @@ export function setupIndexPage() {
 
         // hide edit elements
         editBanner?.classList.add("hidden");
-        editBanner?.setAttribute("aria-hidden", "true");
 
         filterEl?.classList.remove("hidden");
 

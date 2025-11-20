@@ -4,21 +4,21 @@ const BASE_URL = "http://localhost:5678/api";
    GET Works (liste des projets)
 -------------------------------------------------- */
 export async function getWorks() {
-    console.log("→ getWorks : start");
+    console.log("getWorks : start");
 
     try {
         const response = await fetch(`${BASE_URL}/works`);
-        console.log("→ getWorks : response received");
+        console.log("getWorks : response received");
 
         if (!response.ok) {
-            console.log("→ getWorks : error HTTP");
+            console.log("getWorks : error HTTP");
             throw new Error("Erreur HTTP");
         }
 
-        console.log("→ getWorks : success");
+        console.log("getWorks : success");
         return await response.json();
     } catch (err) {
-        console.log("→ getWorks : fetch failed");
+        console.log("getWorks : fetch failed");
         throw err;
     }
 }
@@ -27,21 +27,21 @@ export async function getWorks() {
    GET Categories
 -------------------------------------------------- */
 export async function getCategories() {
-    console.log("→ getCategories : start");
+    console.log("getCategories : start");
 
     try {
         const response = await fetch(`${BASE_URL}/categories`);
-        console.log("→ getCategories : response received");
+        console.log("getCategories : response received");
 
         if (!response.ok) {
-            console.log("→ getCategories : error HTTP");
+            console.log("getCategories : error HTTP");
             throw new Error("Erreur HTTP");
         }
 
-        console.log("→ getCategories : success");
+        console.log("getCategories : success");
         return await response.json();
     } catch (err) {
-        console.log("→ getCategories : fetch failed");
+        console.log("getCategories : fetch failed");
         throw err;
     }
 }
@@ -50,12 +50,12 @@ export async function getCategories() {
    DELETE Work
 -------------------------------------------------- */
 export async function deleteWork(id) {
-    console.log("→ deleteWork : start", "id =", id);
+    console.log("deleteWork : start", "id =", id);
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("authToken");
 
     if (!token) {
-        console.log("→ deleteWork : no token");
+        console.log("deleteWork : no token");
         throw new Error("Utilisateur non connecté");
     }
 
@@ -67,17 +67,17 @@ export async function deleteWork(id) {
             }
         });
 
-        console.log("→ deleteWork : response received");
+        console.log("deleteWork : response received");
 
         if (!response.ok) {
-            console.log("→ deleteWork : delete error");
+            console.log("deleteWork : delete error");
             throw new Error("Erreur de suppression");
         }
 
-        console.log("→ deleteWork : success");
+        console.log("deleteWork : success");
         return true;
     } catch (err) {
-        console.log("→ deleteWork : fetch failed");
+        console.log("deleteWork : fetch failed");
         throw err;
     }
 }
@@ -88,10 +88,10 @@ export async function deleteWork(id) {
 export async function createWork(formData) {
     console.log("→ createWork : start");
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("authToken");
 
     if (!token) {
-        console.log("→ createWork : no token");
+        console.log("createWork : no token");
         throw new Error("Utilisateur non connecté");
     }
 
@@ -104,17 +104,17 @@ export async function createWork(formData) {
             body: formData
         });
 
-        console.log("→ createWork : response received");
+        console.log("createWork : response received");
 
         if (!response.ok) {
-            console.log("→ createWork : error HTTP");
+            console.log("createWork : error HTTP");
             throw new Error("Erreur ajout");
         }
 
-        console.log("→ createWork : success");
+        console.log("createWork : success");
         return await response.json();
     } catch (err) {
-        console.log("→ createWork : fetch failed");
+        console.log("createWork : fetch failed");
         throw err;
     }
 }
