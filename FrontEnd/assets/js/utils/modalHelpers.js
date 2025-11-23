@@ -1,6 +1,8 @@
 /* -------------------------------------------------
    Modal system — ONE modal, TWO screens
 -------------------------------------------------- */
+import { resetAddForm } from "../components/modalAddPhoto.js";
+
 
 const mainModal = document.getElementById("modal");
 
@@ -28,11 +30,14 @@ export function closeModal() {
     mainModal.classList.remove("is-open");
 
     document.body.style.overflow = "";
+    
+    resetAddForm();
 
     // go back in history if the hash is #modal
     if (location.hash === "#modal") {
         history.back();
     }
+
 }
 
 /**

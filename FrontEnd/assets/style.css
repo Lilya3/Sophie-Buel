@@ -166,6 +166,16 @@ nav li:hover {
 }
 .gallery img {
 	width: 100%;
+	height: 95%;
+	object-fit: cover;
+	display: block;
+}
+
+.gallery figcaption {
+	padding-top: 12px;
+	margin-bottom: 15px;
+	text-align: left;
+	font-size: 14px;
 }
 
 .filter{
@@ -519,6 +529,26 @@ button:hover{
 	cursor:default;
 }
 
+.form-error {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+	color: red;
+	background-color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: 'Work Sans';
+    font-size: 20px;
+    z-index: 5000;
+	transition: 0.05s ease-in-out;
+}
+
+.form-error.show {
+    opacity: 1;
+}
+
+
 /* Fields */
 .form-fields {
 	display: flex;
@@ -548,6 +578,7 @@ button:hover{
 .form-fields select {
 	margin-bottom: 2rem;
 }
+
 /* Submit */
 .form-actions {
 	display: flex;
@@ -565,6 +596,7 @@ button:hover{
 	transform: none;
 	filter: none;
 }
+
 
 /* -------------------------------------------------
    CONFIRMATION + TOAST

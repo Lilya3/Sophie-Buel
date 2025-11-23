@@ -1,11 +1,9 @@
-import { openModal } from "../utils/modalHelpers.js";
 import { loadModalGallery } from "./modalGallery.js";
+import { initGallery } from "./gallery.js";
 
 /* -------------------------------------------------
    VARIABLES
 -------------------------------------------------- */
-const modal = document.getElementById("modal");
-
 const screenGallery = document.getElementById("modal-gallery");
 const screenAdd = document.getElementById("modal-add");
 
@@ -26,29 +24,38 @@ const uploadInfo = document.querySelector(".upload-info");
 
 const validateBtn = document.getElementById("submitAddPhoto");
 
-if (!validateBtn) {
-    console.warn("submitAddPhoto introuvable au chargement");
-}
-
 function updateSubmitState() {
     if (!validateBtn) return;
-    
+
     const hasImage = fileInput.files.length > 0;
     const hasTitle = titleInput.value.trim() !== "";
     const hasCategory = categorySelect.value !== "";
 
     if (hasImage && hasTitle && hasCategory) {
         validateBtn.classList.remove("modal__btn--disabled");
-        validateBtn.disabled = false;
     } else {
         validateBtn.classList.add("modal__btn--disabled");
-        validateBtn.disabled = true;
+    }
+
+}
+
+function clearErrorIfValid() {
+    const hasImage = fileInput.files.length > 0;
+    const hasTitle = titleInput.value.trim() !== "";
+    const hasCategory = categorySelect.value !== "";
+
+    if (hasImage && hasTitle && hasCategory) {
+        errorMsg.textContent = "";
     }
 }
 
-fileInput.addEventListener("change", updateSubmitState);
+
 titleInput.addEventListener("input", updateSubmitState);
 categorySelect.addEventListener("change", updateSubmitState);
+
+titleInput.addEventListener("input", clearErrorIfValid);
+categorySelect.addEventListener("change", clearErrorIfValid);
+fileInput.addEventListener("change", clearErrorIfValid);
 
 
 
@@ -56,6 +63,26 @@ categorySelect.addEventListener("change", updateSubmitState);
 const errorMsg = document.createElement("p");
 errorMsg.classList.add("form-error");
 form.appendChild(errorMsg);
+
+/* -------------------------------------------------
+   FUNCTION: Show temp error
+-------------------------------------------------- */
+function showTempError(message, delay = 3000) {
+    // cancer last timer if still on
+    if (errorMsg.timer) {
+        clearTimeout(errorMsg.timer);
+    }
+
+    errorMsg.textContent = message;
+
+    // hide after x seconds
+    errorMsg.timer = setTimeout(() => {
+        errorMsg.textContent = "";
+        errorMsg.timer = null;
+    }, delay);
+}
+
+
 
 
 /* -------------------------------------------------
@@ -72,17 +99,17 @@ function showGalleryScreen() {
    RESET FORM
 -------------------------------------------------- */
 
-function resetAddForm() {
+export function resetAddForm() {
     console.log("Reset Add Photo form");
+
+    showTempError("");
 
     form.reset();
     preview.innerHTML = `<i class="fa-regular fa-image"></i>`;
     uploadBtn.style.display = "block";
     uploadInfo.style.display = "block";
-    errorMsg.textContent = "";
     validateBtn.classList.add("modal__btn--disabled");
     validateBtn.disabled = true;
-
 }
 
 
@@ -95,8 +122,8 @@ export async function loadCategories() {
 
     const res = await fetch("http://localhost:5678/api/categories");
     const cats = await res.json();
-
     categorySelect.innerHTML = `<option value="">Selectionnez une catégorie</option>`;
+
 
     cats.forEach(cat => {
         const opt = document.createElement("option");
@@ -114,14 +141,17 @@ export async function loadCategories() {
 fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
 
-    if (!file) return;
-
+    if (!file) {
+        updateSubmitState();
+        return;
+    }
     if (!["image/jpeg", "image/png"].includes(file.type)) {
-        errorMsg.textContent = "Only JPG/PNG allowed";
+        showTempError("Only JPG/PNG allowed");
         return;
     }
     if (file.size > 4 * 1024 * 1024) {
-        errorMsg.textContent = "Max size 4MB";
+        showTempError("Max size 4MB");
+        fileInput.value = "";
         return;
     }
 
@@ -134,6 +164,8 @@ fileInput.addEventListener("change", () => {
 
     uploadBtn.style.display = "none";
     uploadInfo.style.display = "none";
+
+    updateSubmitState();
 });
 
 
@@ -143,9 +175,10 @@ fileInput.addEventListener("change", () => {
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
+    
+    //Check img
     if (!fileInput.files[0] || !titleInput.value || !categorySelect.value) {
-        errorMsg.textContent = "Please fill everything";
+        showTempError("Veuillez remplir tous les champs.");
         return;
     }
 
@@ -163,12 +196,15 @@ form.addEventListener("submit", async (e) => {
     });
 
     if (!res.ok) {
-        errorMsg.textContent = "Upload failed";
+        showTempError("Échec de l'envoi.");
         return;
     }
 
+    await new Promise(r => setTimeout(r, 400));
+    
     // Refresh gallery screen
     loadModalGallery();
+    initGallery();
     showGalleryScreen();
     resetAddForm();
 });
@@ -181,4 +217,5 @@ form.addEventListener("submit", async (e) => {
 backBtn.addEventListener("click", () => {
     console.log("Back to gallery screen");
     showGalleryScreen();
+    resetAddForm();
 });
