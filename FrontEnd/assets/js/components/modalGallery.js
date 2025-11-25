@@ -14,8 +14,6 @@ const screenAdd = document.getElementById("modal-add");
 
 const openEditBtn = document.getElementById("editButton");
 const btnToAddPhoto = document.getElementById("btnToAddPhoto");
-const closeBtns = modal.querySelectorAll(".modal__close");
-
 const galleryContent = document.getElementById("modalGalleryContent");
 
 
@@ -74,15 +72,12 @@ openEditBtn?.addEventListener("click", () => {
 });
 
 btnToAddPhoto.addEventListener("click", () => {
+    if (!modal.classList.contains("is-open")) return;
+    
     console.log("Switch to Add Photo screen");
     showScreen(screenAdd);
     loadCategories();
 });
-    
-closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        console.log("Close modal clicked");
-        modal.classList.remove("is-open");
-        document.body.style.overflow = "";
-    });
-});
+
+
+

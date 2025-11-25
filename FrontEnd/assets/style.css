@@ -312,7 +312,8 @@ button:hover{
 .modal__overlay{
 	position: absolute;
 	inset: 0;
-	background:transparent
+	background:transparent;
+	z-index: 1;
 }
 
 /* PANEL */
@@ -328,6 +329,7 @@ button:hover{
 	padding: 10px 70px 50px 70px;
 	transform: translateY(0);
 	transition: all 0.25s ease;
+	z-index: 2;
 }
 .modal__panel::-webkit-scrollbar {
 	width: 7px;
@@ -469,6 +471,7 @@ button:hover{
 .upload-container {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	background: #e8f0f4;
 	border-radius: 8px;
 	padding: 15px 0px 12px;
@@ -500,7 +503,7 @@ button:hover{
 
 /* Image miniature */
 .preview img {
-    height: 200px;
+    height: 220px;
     width: auto;
     object-fit: contain;      
     display: block;

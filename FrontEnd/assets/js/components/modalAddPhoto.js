@@ -36,8 +36,8 @@ function updateSubmitState() {
     } else {
         validateBtn.classList.add("modal__btn--disabled");
     }
-
 }
+
 
 function clearErrorIfValid() {
     const hasImage = fileInput.files.length > 0;
@@ -60,7 +60,7 @@ fileInput.addEventListener("change", clearErrorIfValid);
 
 
 // Inline error message
-const errorMsg = document.createElement("p");
+export const errorMsg = document.createElement("p");
 errorMsg.classList.add("form-error");
 const formActions = form.querySelector(".form-actions");
 form.insertBefore(errorMsg, formActions);
@@ -68,8 +68,12 @@ form.insertBefore(errorMsg, formActions);
 /* -------------------------------------------------
    FUNCTION: Show temp error
 -------------------------------------------------- */
-function showTempError(message, delay = 3000) {
-    // cancer last timer if still on
+export function showTempError(message, delay = 2500) {
+
+    errorMsg.style.display = "block";
+    errorMsg.style.opacity = "1";
+
+    // cancel last timer if still on
     if (errorMsg.timer) {
         clearTimeout(errorMsg.timer);
     }
@@ -101,16 +105,38 @@ function showGalleryScreen() {
 -------------------------------------------------- */
 
 export function resetAddForm() {
-    console.log("Reset Add Photo form");
+    console.log("RESET ADD FORM start");
 
-    showTempError("");
+    errorMsg.textContent = "";
+    errorMsg.style.display = "block";
+    errorMsg.style.opacity = "1";
+    console.log("error text cleared");
+
+    // FULL reset of error message
+    errorMsg.textContent = "";
+    if (errorMsg.timer) {
+        console.log("clearing error timer");
+        clearTimeout(errorMsg.timer);
+        errorMsg.timer = null;
+    }
+    else {
+        console.log("no error timer to clear");
+    }
 
     form.reset();
+    console.log("form.reset() done");
+
+    updateSubmitState(); 
+
     preview.innerHTML = `<i class="fa-regular fa-image"></i>`;
+    console.log("preview reset");
+
     uploadBtn.style.display = "block";
     uploadInfo.style.display = "block";
+
     validateBtn.classList.add("modal__btn--disabled");
-    validateBtn.disabled = true;
+
+    console.log("RESET ADD FORM end");
 }
 
 
@@ -218,5 +244,4 @@ form.addEventListener("submit", async (e) => {
 backBtn.addEventListener("click", () => {
     console.log("Back to gallery screen");
     showGalleryScreen();
-    resetAddForm();
 });

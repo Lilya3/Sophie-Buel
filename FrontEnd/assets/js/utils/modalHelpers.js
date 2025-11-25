@@ -1,70 +1,81 @@
 /* -------------------------------------------------
    Modal system — ONE modal, TWO screens
 -------------------------------------------------- */
+import { errorMsg } from "../components/modalAddPhoto.js";
 import { resetAddForm } from "../components/modalAddPhoto.js";
+const modal = document.getElementById("modal");
 
+/* -------------------------------------------------
+   FULL RESET + CLOSE
+-------------------------------------------------- */
+export function resetFullApp() {
+    console.log("RESET FULL APP");
+    
+    errorMsg.textContent = "";
+        if (errorMsg.timer) {
+        clearTimeout(errorMsg.timer);
+        errorMsg.timer = null;
+    }
 
-const mainModal = document.getElementById("modal");
+    // 1. Reset form
+    resetAddForm();
+    console.log("form reset done");
 
-/**
- * Open the MAIN modal
- */
+    // 2. Reset screens
+    document.getElementById("modal-add").classList.remove("active");
+    document.getElementById("modal-gallery").classList.add("active");
+    console.log("screen reset to gallery");
+
+    // 3. Close modal
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+    console.log("modal closed");
+}
+
+/* -------------------------------------------------
+   OPEN MODAL
+-------------------------------------------------- */
 export function openModal() {
     console.log("open modal");
 
-    mainModal.classList.add("is-open");
+    document.getElementById("modal-add").classList.remove("active");
+    document.getElementById("modal-gallery").classList.add("active");
 
-    // prevent page scroll
+    modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
-
-    // push ONE history state only
-    history.pushState({ modal: true }, "", "#modal");
 }
 
-/**
- * Close modal
- */
-export function closeModal() {
-    console.log("close modal");
 
-    mainModal.classList.remove("is-open");
+/* -------------------------------------------------
+   CLOSE ON (X) BUTTON
+-------------------------------------------------- */
+const closeBtns = modal.querySelectorAll(".modal__close");
 
-    document.body.style.overflow = "";
-    
-    resetAddForm();
+closeBtns.forEach(btn =>
+    btn.addEventListener("click", (e) => {
+        console.log("CLOSING: X button");
+        e.stopPropagation();
+        resetFullApp();
+    })
+);
 
-    // go back in history if the hash is #modal
-    if (location.hash === "#modal") {
-        history.back();
-    }
-
-}
-
-/**
- * Close modal on overlay click
- */
+/* -------------------------------------------------
+   CLOSE ON OVERLAY CLICK
+-------------------------------------------------- */
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("modal__overlay")) {
-        closeModal();
+        console.log("CLOSING: overlay click");
+        e.stopPropagation();
+        resetFullApp();
     }
 });
 
-/**
- * Close modal on Escape
- */
+/* -------------------------------------------------
+   CLOSE ON ESC
+-------------------------------------------------- */
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        closeModal();
-    }
-});
-
-/**
- * Handle browser back button
- */
-window.addEventListener("popstate", (e) => {
-    console.log("browser back");
-
-    if (!e.state || !e.state.modal) {
-        closeModal();
-    }
+    if (e.key === "Escape")
+        console.log("ESC pressed");
+        e.stopPropagation();
+        resetFullApp();
 });

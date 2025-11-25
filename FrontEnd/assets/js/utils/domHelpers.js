@@ -6,7 +6,6 @@
  * Create an element*
  */
 export function createElement(tag) {
-    console.log("create element");
     return document.createElement(tag);
 }
 
