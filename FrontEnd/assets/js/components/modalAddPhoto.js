@@ -62,7 +62,8 @@ fileInput.addEventListener("change", clearErrorIfValid);
 // Inline error message
 const errorMsg = document.createElement("p");
 errorMsg.classList.add("form-error");
-form.appendChild(errorMsg);
+const formActions = form.querySelector(".form-actions");
+form.insertBefore(errorMsg, formActions);
 
 /* -------------------------------------------------
    FUNCTION: Show temp error

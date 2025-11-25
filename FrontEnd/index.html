@@ -8,11 +8,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-	integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="assets/js/script.js" defer></script>
 </head>
 <body>
 	<div id="editBanner" class="edit-banner hidden">
@@ -53,11 +50,9 @@
 		</div>
 
 <div id="modal" class="modal">
-
     <div class="modal__overlay" data-close="overlay"></div>
 
     <div class="modal__panel" role="dialog" aria-modal="false">
-
         <div id="modal-gallery" class="modal-screen active">
             <button class="modal__close" aria-label="Fermer" data-close="button">x</button>
             <h3 class="modal__title">Galerie photo</h3>
@@ -86,21 +81,23 @@
             <h3 class="modal__title">Ajout photo</h3>
 
             <form id="form-add-photo" class="form-add-photo">
-
                 <div class="upload-container">
                     <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" hidden>
                     <label for="fileInput" class="upload-label">
-                        <div id="preview" class="preview">
-                            <i class="fa-regular fa-image"></i>
-                        </div>
-                        <span class="upload-btn">+ Ajouter photo</span>
-                        <p class="upload-info">jpg, png : 4mo max</p>
+						<span class="label-content">
+                        	<div id="preview" class="preview">
+                            	<i class="fa-regular fa-image"></i>
+                        	</div>
+
+                        	<span class="upload-btn">+ Ajouter photo</span>
+                        	<p class="upload-info">jpg, png : 4mo max</p>
+						</span>
                     </label>
                 </div>
 
                 <div class="form-fields">
                     <label for="title">Titre</label>
-                    <input type="text" id="title"/>
+                    <input type="text" id="title">
 
                     <label for="category">Catégorie</label>
                     <select id="category"></select>
@@ -114,7 +111,6 @@
                     </button>
                 </div>
             </form>
-
         </div> 
     </div>
 </div>
@@ -152,6 +148,7 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<script type="module" src="assets/js/script.js"></script>
 </main>
 
 <footer>

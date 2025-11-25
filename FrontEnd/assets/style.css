@@ -128,7 +128,9 @@ nav li:hover {
 	margin-bottom: 0.5em;
 }
 
-/*=========== Portfolio ===========*/
+/* -------------------------------------------------
+   PORTFOLIO
+-------------------------------------------------- */
 .portfolio-header{
 	display: flex;
 	align-items: center;
@@ -200,7 +202,9 @@ button:hover{
 	color: white;
 }
 
-/*============= Login Banner ===============*/
+/* -------------------------------------------------
+   LOGIN BANNER
+-------------------------------------------------- */
 .edit-banner{
 	background: #000;
 	color: #fff;
@@ -221,7 +225,9 @@ button:hover{
 	display:none;
 }
 
-/* Login */
+/* -------------------------------------------------
+   LOGIN
+-------------------------------------------------- */
 .login-container {
 	width: 400px;
 	margin: 100px auto;
@@ -474,11 +480,10 @@ button:hover{
 }
 .upload-label {
 	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: block;
 	color: #555;
 	font-family: 'Work Sans', sans-serif;
+	text-align: center;
 }
 .upload-label i {
 	font-size: 60px;
@@ -486,10 +491,8 @@ button:hover{
 	margin-bottom: 10px;
 }
 
-/* Zone preview centrée */
+/* Zone preview center */
 .preview {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -530,6 +533,7 @@ button:hover{
 }
 
 .form-error {
+	display: block;
     position: fixed;
     top: 70px;
     left: 50%;
@@ -563,6 +567,10 @@ button:hover{
 	font-size: 18px;
 	margin-top: 1.5rem;
 	color: #333;
+}
+.form-fields .label-content {
+    display: block;
+	width: 100%;
 }
 .form-fields input,
 .form-fields select {
