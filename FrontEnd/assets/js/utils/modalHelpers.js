@@ -1,8 +1,9 @@
 /* -------------------------------------------------
    Modal system — ONE modal, TWO screens
 -------------------------------------------------- */
-import { errorMsg } from "../components/modalAddPhoto.js";
 import { resetAddForm } from "../components/modalAddPhoto.js";
+import { loadModalGallery } from "../components/modalGallery.js";
+
 const modal = document.getElementById("modal");
 
 /* -------------------------------------------------
@@ -10,21 +11,19 @@ const modal = document.getElementById("modal");
 -------------------------------------------------- */
 export function resetFullApp() {
     console.log("RESET FULL APP");
-    
-    errorMsg.textContent = "";
-        if (errorMsg.timer) {
-        clearTimeout(errorMsg.timer);
-        errorMsg.timer = null;
-    }
 
     // 1. Reset form
     resetAddForm();
     console.log("form reset done");
 
     // 2. Reset screens
-    document.getElementById("modal-add").classList.remove("active");
-    document.getElementById("modal-gallery").classList.add("active");
+    const screenGallery = document.getElementById("modal-gallery");
+    const screenAdd = document.getElementById("modal-add");
+    screenAdd.classList.remove("active");
+    screenGallery.classList.add("active");
     console.log("screen reset to gallery");
+
+    loadModalGallery();
 
     // 3. Close modal
     modal.classList.remove("is-open");
@@ -37,10 +36,6 @@ export function resetFullApp() {
 -------------------------------------------------- */
 export function openModal() {
     console.log("open modal");
-
-    document.getElementById("modal-add").classList.remove("active");
-    document.getElementById("modal-gallery").classList.add("active");
-
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
 }
@@ -50,20 +45,22 @@ export function openModal() {
    CLOSE ON (X) BUTTON
 -------------------------------------------------- */
 const closeBtns = modal.querySelectorAll(".modal__close");
-
-closeBtns.forEach(btn =>
+closeBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         console.log("CLOSING: X button");
         e.stopPropagation();
         resetFullApp();
-    })
-);
+    });
+});
 
 /* -------------------------------------------------
    CLOSE ON OVERLAY CLICK
 -------------------------------------------------- */
 document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("modal__overlay")) {
+    if (
+        e.target.classList.contains("modal__overlay") &&
+        modal.classList.contains("is-open")
+    ) {
         console.log("CLOSING: overlay click");
         e.stopPropagation();
         resetFullApp();
@@ -74,8 +71,9 @@ document.addEventListener("click", (e) => {
    CLOSE ON ESC
 -------------------------------------------------- */
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape")
-        console.log("ESC pressed");
+    if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        console.log("CLOSING: ESC key");
         e.stopPropagation();
         resetFullApp();
+    }
 });

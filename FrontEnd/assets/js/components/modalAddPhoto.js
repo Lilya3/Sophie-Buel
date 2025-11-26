@@ -107,11 +107,6 @@ function showGalleryScreen() {
 export function resetAddForm() {
     console.log("RESET ADD FORM start");
 
-    errorMsg.textContent = "";
-    errorMsg.style.display = "block";
-    errorMsg.style.opacity = "1";
-    console.log("error text cleared");
-
     // FULL reset of error message
     errorMsg.textContent = "";
     if (errorMsg.timer) {
@@ -122,6 +117,8 @@ export function resetAddForm() {
     else {
         console.log("no error timer to clear");
     }
+
+    errorMsg.textContent = "";
 
     form.reset();
     console.log("form.reset() done");
@@ -135,7 +132,7 @@ export function resetAddForm() {
     uploadInfo.style.display = "block";
 
     validateBtn.classList.add("modal__btn--disabled");
-
+    
     console.log("RESET ADD FORM end");
 }
 
