@@ -1,5 +1,5 @@
 # Portfolio-architecte-sophie-bluel
-![Badge](https://img.shields.io/badge/status-in%20progress-success)
+![Badge](https://img.shields.io/badge/status-validé-green)
 
 Code du projet 6 d’intégrateur web (OpenClassrooms).
 
