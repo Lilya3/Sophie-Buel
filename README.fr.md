@@ -100,9 +100,9 @@ L’API est accessible par défaut sur http://localhost:5678/api/
 ## Suivi du projet (Kanban)
 
 Un Kanban (Trello) a été utilisé pour suivre les tâches :
-* **À faire** : récupération API, filtres, login, modale, upload.
-* **En cours** : intégration progressive des étapes.
-* **Fait** : validation des fonctionnalités une par une.
+* récupération API, filtres, login, modale, upload.
+* intégration progressive des étapes.
+* validation des fonctionnalités une par une.
 
 ## Auteur
 Projet réalisé par Lilya (@Lilya3) dans le cadre de la formation **Intégrateur Web – OpenClassrooms**. 
